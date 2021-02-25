@@ -1,0 +1,12 @@
+#java binaries
+*.class
+
+#module gitignores
+/install/.classpath
+/install/target/
+/common/.classpath
+/common/target/
+/model/.classpath
+/model/target/
+/swingui/.classpath
+/swingui/target/
