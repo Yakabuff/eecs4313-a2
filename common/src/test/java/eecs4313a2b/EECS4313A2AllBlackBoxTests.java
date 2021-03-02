@@ -115,15 +115,20 @@ public class EECS4313A2AllBlackBoxTests implements SocketHandler
 	/*********************************************Method3 Tests***********************************************************/
 	//equivalence class testing
 	@Test
-	public void testIsAfter2() {
+	public void testMinuteString() {
+		//classes are under 1 hour, over 1 hour with no minutes, over 1 hour with minutes, 1 hour with no minutes
+		
 		//weak normal
-		// only valid dates
+		// valid day change
 		var day1 = new Date(2020,1,1);
 		var day2 = new Date(2020,1,2);
-				
-		
-		
-		//weak robust
+		//valid month change
+		day1 = new Date(2020,1,1);
+		day2 = new Date(2020,2,1);
+		//valid year change
+		day1 = new Date(2020,1,1);
+		day2 = new Date(2021,1,1);
+
 		
 	}
 }
