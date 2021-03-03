@@ -115,20 +115,30 @@ public class EECS4313A2AllBlackBoxTests implements SocketHandler
 	/*********************************************Method3 Tests***********************************************************/
 	//equivalence class testing
 	@Test
-	public void testMinuteString() {
-		//classes are under 1 hour, over 1 hour with no minutes, over 1 hour with minutes, 1 hour with no minutes
+	public void testToMonthECT() {
+		//partition into classes: hours and minutes	
+		//weak normal - only accept valid inputs. 
 		
-		//weak normal
-		// valid day change
-		var day1 = new Date(2020,1,1);
-		var day2 = new Date(2020,1,2);
-		//valid month change
-		day1 = new Date(2020,1,1);
-		day2 = new Date(2020,2,1);
-		//valid year change
-		day1 = new Date(2020,1,1);
-		day2 = new Date(2021,1,1);
-
+		//Case 1: min%60 = 0 and min/60 >= 0 and min/60 <1
+		assertEquals("0 Minutes",DateUtil.minuteString(0));
+		//Case 2: min%60 = 0 and min/60 >= 1 and min/60 < 2
+		assertEquals("1 Minute",DateUtil.minuteString(60));
+		//Case 3: min%60 = 0 and min/60 >= 2 
+		assertEquals("3 Hours",DateUtil.minuteString(180));
+		//Case 4: min%60 >1 and min/60 >= 0 and min/60 <1
+		assertEquals("5 Minutes",DateUtil.minuteString(5));
+		//Case 5: min%60 >1 and min/60 >= 1 and min/60 < 2
+		assertEquals("1 Hour and 5 Minutes",DateUtil.minuteString(65));
+		//Case 6: min%60 >1 and min/60 >= 2 
+		assertEquals("3 Hours and 5 Minutes",DateUtil.minuteString(185));
+		//Case 7: min%60 = 1 and min/60 >= 0 and min/60 <1
+		assertEquals("1 Minute",DateUtil.minuteString(1));
+		//Case 8: min%60 = 1 and min/60 >= 1 and min/60 < 2
+		assertEquals("1 Hour and 1 Minute",DateUtil.minuteString(61));
+		//Case 9:  min%60 = 1 and min/60 >= 2 
+		assertEquals("3 Hours and 1 Minute",DateUtil.minuteString(181));
+		
+		
 		
 	}
 }
