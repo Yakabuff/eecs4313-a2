@@ -2,6 +2,10 @@ package eecs4313a2w;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -11,7 +15,7 @@ import org.junit.Test;
 import net.sf.borg.common.DateUtil;
 import net.sf.borg.common.*;
 
-public class EECS4313A2AllWhiteBoxTests
+public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 {
 	
 	private static GregorianCalendar calendar1;
@@ -127,6 +131,13 @@ public class EECS4313A2AllWhiteBoxTests
 	
 	
 	/*********************************************Method2 Tests***********************************************************/
+	
+	@Override
+	public String processMessage(String msg) {
+		// TODO Auto-generated method stub
+		return msg;
+	}
+	
 	//boundary test
 	@Test
 	public void testSendMsg() {
@@ -140,7 +151,7 @@ public class EECS4313A2AllWhiteBoxTests
 		int port_max_minus = 65534; // x_max-
 		
 		
-		//SocketServer ss = new SocketServer(port_norm, this);
+		SocketServer ss = new SocketServer(port_norm, this);
 		
 		try {
 			String msg = "port norm";
@@ -187,7 +198,39 @@ public class EECS4313A2AllWhiteBoxTests
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
 
+	}
+	/********************Added for Whitebox***************************************/
+	
+	private class MockSocketHandler implements SocketHandler
+	{
+		
+		public MockSocketHandler()
+		{
+			
+		}
+		@Override
+		public String processMessage(String msg) {
+			
+			return null;
+		}
+		
+	}
+	@Test
+	public void test1()
+	{
+		MockSocketHandler mockSocketHandler = new MockSocketHandler();
+		SocketServer ss = new SocketServer(2929, mockSocketHandler);
+		
+		try {
+			String msg = "dan";
+			String response = SocketClient.sendMsg("localhost", 2929, msg);
+			assertEquals("norm test",msg, response);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	/*********************************************Method3 Tests***********************************************************/
@@ -274,6 +317,8 @@ public class EECS4313A2AllWhiteBoxTests
 			
 		}
 	}
+
+	
 	
 }
 	
