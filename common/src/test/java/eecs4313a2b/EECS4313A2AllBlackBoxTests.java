@@ -2,8 +2,11 @@ package eecs4313a2b;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import net.sf.borg.common.DateUtil;
@@ -12,33 +15,39 @@ public class EECS4313A2AllBlackBoxTests implements SocketHandler
 {
 	
 	/*********************************************Method1 Tests***********************************************************/
+	
+	private static GregorianCalendar calendar1;
+	private static Calendar calendar2;
+	
+	//Test class setup
+	@BeforeClass
+	public static void setup() {
+		calendar1 = new GregorianCalendar();
+		calendar2 = new GregorianCalendar();
+	}
 	//decision table
 	/*
 	 * conditions
 	 * date 1 is after date 2
 	 * date 1 is same as date 2
 	 * date 1 is before date 2
-	 */
+	 */  
 	@Test
-	public void testDateUtilIsAfter()
-	{
-		Date d1 = new Date(2020,1,1);
-		Date d2 = new Date(2020,1,2);
-		var result = DateUtil.isAfter(d1, d2);
-		
-		assertTrue("date 1 is after date 2", result);
-		
-		d1 = new Date(2020,1,1);
-		d2 = new Date(2019,1,1);
-		result = DateUtil.isAfter(d1,d2);
-		assertFalse("date2 is after date1", result);
-		
-		d1 = new Date(2020,1,1);
-		d2 = new Date(2020,1,1);
-		
-		result = DateUtil.isAfter(d2,d1);
-		assertFalse("date1 is equal to date2", result);
-				
+	public void testDateUtilIsAfter() {
+		calendar1.set(1, 0, 1);
+		calendar2.set(1, 0, 2);
+		boolean result = DateUtil.isAfter(calendar1.getTime(), calendar2.getTime());
+		assertFalse("Should be false, date 1 is before date 2!", result);
+
+		calendar1.set(1, 0, 1);
+		calendar2.set(1, 0, 1);
+		result = DateUtil.isAfter(calendar1.getTime(), calendar2.getTime());
+		assertFalse("Should be false, date 1 is same as date 2!", result);
+
+		calendar1.set(1, 0, 2);
+		calendar2.set(1, 0, 1);
+		result = DateUtil.isAfter(calendar1.getTime(), calendar2.getTime());
+		assertTrue("Should be true, date 1 is after as date 2!", result);			
 	}
 	/*********************************************Method2 Tests***********************************************************/
 	//boundary test
@@ -122,21 +131,21 @@ public class EECS4313A2AllBlackBoxTests implements SocketHandler
 		//Case 1: min%60 = 0 and min/60 >= 0 and min/60 <1
 		assertEquals("0 Minutes",DateUtil.minuteString(0));
 		//Case 2: min%60 = 0 and min/60 >= 1 and min/60 < 2
-		assertEquals("1 Minute",DateUtil.minuteString(60));
+		assertEquals("1 Hour",DateUtil.minuteString(60));
 		//Case 3: min%60 = 0 and min/60 >= 2 
 		assertEquals("3 Hours",DateUtil.minuteString(180));
 		//Case 4: min%60 >1 and min/60 >= 0 and min/60 <1
 		assertEquals("5 Minutes",DateUtil.minuteString(5));
 		//Case 5: min%60 >1 and min/60 >= 1 and min/60 < 2
-		assertEquals("1 Hour and 5 Minutes",DateUtil.minuteString(65));
+		assertEquals("1 Hour 5 Minutes",DateUtil.minuteString(65));
 		//Case 6: min%60 >1 and min/60 >= 2 
-		assertEquals("3 Hours and 5 Minutes",DateUtil.minuteString(185));
+		assertEquals("3 Hours 5 Minutes",DateUtil.minuteString(185));
 		//Case 7: min%60 = 1 and min/60 >= 0 and min/60 <1
 		assertEquals("1 Minute",DateUtil.minuteString(1));
 		//Case 8: min%60 = 1 and min/60 >= 1 and min/60 < 2
-		assertEquals("1 Hour and 1 Minute",DateUtil.minuteString(61));
+		assertEquals("1 Hour 1 Minute",DateUtil.minuteString(61));
 		//Case 9:  min%60 = 1 and min/60 >= 2 
-		assertEquals("3 Hours and 1 Minute",DateUtil.minuteString(181));
+		assertEquals("3 Hours 1 Minute",DateUtil.minuteString(181));
 		
 		
 		
