@@ -2,10 +2,7 @@ package eecs4313a2w;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -202,36 +199,7 @@ public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 
 	}
 	/********************Added for Whitebox***************************************/
-	
-	private class MockSocketHandler implements SocketHandler
-	{
-		
-		public MockSocketHandler()
-		{
-			
-		}
-		@Override
-		public String processMessage(String msg) {
-			
-			return null;
-		}
-		
-	}
-	@Test
-	public void test1()
-	{
-		MockSocketHandler mockSocketHandler = new MockSocketHandler();
-		SocketServer ss = new SocketServer(2929, mockSocketHandler);
-		
-		try {
-			String msg = "dan";
-			String response = SocketClient.sendMsg("localhost", 2929, msg);
-			assertEquals("norm test",msg, response);
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+	//none to add
 	
 	/*********************************************Method3 Tests***********************************************************/
 	//equivalence class testing
