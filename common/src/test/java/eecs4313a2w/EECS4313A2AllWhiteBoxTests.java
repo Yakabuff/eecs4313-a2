@@ -9,7 +9,6 @@ import java.util.GregorianCalendar;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import net.sf.borg.common.DateUtil;
 import net.sf.borg.common.*;
 
 public class EECS4313A2AllWhiteBoxTests implements SocketHandler
@@ -191,6 +190,36 @@ public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 			String msg = "port max minus";
 			String response = SocketClient.sendMsg(validHost, port_max_minus, msg);
 			assertEquals("Max- test", msg, response);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		try {
+			ss = new SocketServer(port_max+1, this);
+			String msg = "port max plus";
+			String response = SocketClient.sendMsg(validHost, port_max_minus, msg);
+			assertEquals("Max+ test", msg, response);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		try {
+			ss = new SocketServer(port_min-1, this);
+			String msg = "port min minus";
+			String response = SocketClient.sendMsg(validHost, port_max_minus, msg);
+			assertEquals("Min- test", msg, response);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		try {
+			ss = new SocketServer(2929, this);
+			String msg = null;
+			String response = SocketClient.sendMsg(validHost, port_max_minus, msg);
+			assertEquals("null message test", msg, response);
 			
 		}catch(Exception e){
 			e.printStackTrace();
