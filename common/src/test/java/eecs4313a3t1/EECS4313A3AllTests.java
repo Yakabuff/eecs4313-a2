@@ -1,17 +1,21 @@
-package eecs4313a2w;
+package eecs4313a3t1;
 
 import static org.junit.Assert.*;
 
-
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import net.sf.borg.common.*;
+import net.sf.borg.common.DateUtil;
+import net.sf.borg.common.SocketClient;
+import net.sf.borg.common.SocketHandler;
+import net.sf.borg.common.SocketServer;
 
-public class EECS4313A2AllWhiteBoxTests implements SocketHandler
+public class EECS4313A3AllTests implements SocketHandler
 {
 	
 	private static GregorianCalendar calendar1;
@@ -71,6 +75,7 @@ public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 	/********************Added for Whitebox***************************************/
 	
 	//null dates
+	@Ignore
 	@Test
 	public void isAfter_nullDate_noExceptionThrown()
 	{
@@ -86,6 +91,7 @@ public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 	}
 	
 	//earliest date
+	@Ignore
 	@Test
 	public void isAfter_earliestDateWithNormalDate_False()
 	{
@@ -225,8 +231,23 @@ public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 			e.printStackTrace();
 		}
 		
+		
 
 	}
+	
+	/*********added after mutation testing*****************/
+	final int TEST_PORT = 9999;
+	final String TEST_HOST = "localhost";
+	
+	@Test
+	public void sendMsg_defaultCase_messageReturned() throws IOException
+	{
+		SocketServer s = new SocketServer(TEST_PORT, this);
+		String msg = "test";
+		String response = SocketClient.sendMsg(TEST_HOST,TEST_PORT, msg);
+		assertEquals(msg, response);
+	}
+	
 	/********************Added for Whitebox***************************************/
 	//none to add
 	
@@ -264,7 +285,7 @@ public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 	
 	/********************Added for Whitebox***************************************/
 	//negative numbers
-	
+	@Ignore
 	@Test
 	public void minuteString_NegativeValue_Exception()
 	{
@@ -300,6 +321,7 @@ public class EECS4313A2AllWhiteBoxTests implements SocketHandler
 	}
 	
 	//int min value
+	@Ignore
 	@Test
 	public void minuteString_IntMinValue_Exception()
 	{
